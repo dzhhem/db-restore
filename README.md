@@ -5,9 +5,9 @@
 ## Features
 
 - **Auto Configuration:** Reads `DATABASE_URL` from `.env`.
-- **Flexible ENV Path:** Accepts a custom path to `.env` file via `--env` argument.
+- **Flexible ENV Path:** Accepts a custom path to `.env` file via `-e` / `--env` argument.
 - **Auto Latest:** Automatically uses the most recent dump if no file is specified.
-- **Named Arguments:** Supports `--file`, `--env` and `--reset` flags for explicit control.
+- **Named Arguments:** Supports short (`-f`, `-e`, `-r`) and long (`--file`, `--env`, `--reset`) flags.
 - **Reset Mode:** Optionally drops and recreates the schema before restoring for a clean slate.
 
 ## Usage
@@ -24,22 +24,22 @@ bash scripts/db-restore.sh
 
 ### Restore latest dump with custom `.env`
 ```bash
-bash scripts/db-restore.sh --env apps/api/.env
+bash scripts/db-restore.sh -e apps/api/.env
 ```
 
 ### Restore specific dump with default `.env`
 ```bash
-bash scripts/db-restore.sh --file dumps/db/backup-2026-04-09_14-30-00.sql
+bash scripts/db-restore.sh -f dumps/db/backup-2026-04-09_14-30-00.sql
 ```
 
 ### Restore specific dump with custom `.env`
 ```bash
-bash scripts/db-restore.sh --file dumps/db/backup-2026-04-09_14-30-00.sql --env apps/api/.env
+bash scripts/db-restore.sh -f dumps/db/backup-2026-04-09_14-30-00.sql -e apps/api/.env
 ```
 
 ### Restore with full database reset
 ```bash
-bash scripts/db-restore.sh --env apps/api/.env --reset
+bash scripts/db-restore.sh -e apps/api/.env --reset
 ```
 
 ## .env configuration
