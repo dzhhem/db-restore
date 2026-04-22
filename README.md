@@ -12,7 +12,7 @@
 - **Prisma Compatibility:** Strips Prisma-specific query parameters (e.g. `?schema=public`) unsupported by `psql`.
 - **Error Handling:** Exits with a non-zero code if the connection or restore fails — no false success messages.
 - **Named Arguments:** Supports short (`-f`, `-e`, `-r`) and long (`--file`, `--env`, `--reset`) flags.
-- **Reset Mode:** Optionally drops and recreates the schema before restoring for a clean slate.
+- **Reset Mode:** Optionally clears the public schema (drops tables and types) before restoring for a clean slate.
 
 ## Usage
 
