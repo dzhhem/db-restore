@@ -5,8 +5,12 @@
 ## Features
 
 - **Auto Configuration:** Reads `DATABASE_URL` from `.env`.
+- **Safe `.env` Parsing:** Correctly handles inline comments and quoted values.
 - **Flexible ENV Path:** Accepts a custom path to `.env` file via `-e` / `--env` argument.
 - **Auto Latest:** Automatically uses the most recent dump if no file is specified.
+- **Docker Support:** Automatically detects Docker environment and replaces `localhost` with the `postgres` service name.
+- **Prisma Compatibility:** Strips Prisma-specific query parameters (e.g. `?schema=public`) unsupported by `psql`.
+- **Error Handling:** Exits with a non-zero code if the connection or restore fails — no false success messages.
 - **Named Arguments:** Supports short (`-f`, `-e`, `-r`) and long (`--file`, `--env`, `--reset`) flags.
 - **Reset Mode:** Optionally drops and recreates the schema before restoring for a clean slate.
 
@@ -42,11 +46,16 @@ bash scripts/db-restore.sh -f dumps/db/backup-2026-04-09_14-30-00.sql -e apps/ap
 bash scripts/db-restore.sh -e apps/api/.env --reset
 ```
 
+### Run inside Docker (via runner container)
+```bash
+bash scripts/db-restore.sh -e apps/api/.env.docker
+```
+
 ## .env configuration
 
 The following variable must be present in your `.env` file:
 ```
-DATABASE_URL=postgresql://postgres:your_password@localhost:5432/your_db
+DATABASE_URL=postgresql://postgres:your_password@localhost:5432/your_db?schema=public
 ```
 
 ## Requirements
