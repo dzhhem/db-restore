@@ -11,8 +11,9 @@
 - **Docker Support:** Automatically detects Docker environment and replaces `localhost` with the `postgres` service name.
 - **Prisma Compatibility:** Strips Prisma-specific query parameters (e.g. `?schema=public`) unsupported by `psql`.
 - **Error Handling:** Exits with a non-zero code if the connection or restore fails — no false success messages.
-- **Named Arguments:** Supports short (`-f`, `-e`, `-r`) and long (`--file`, `--env`, `--reset`) flags.
-- **Reset Mode:** Optionally clears the public schema (drops tables and types) before restoring for a clean slate.
+- **Named Arguments:** Supports short (`-f`, `-e`, `-r`, `-c`) and long (`--file`, `--env`, `--reset`, `--clean`) flags.
+- **Reset Mode:** Optionally clears the public schema before restoring.
+- **Clean Mode:** Use `-c` / `--clean` to only clear the schema without performing a restore.
 
 ## Usage
 
@@ -44,6 +45,11 @@ bash scripts/db-restore.sh -f dumps/db/backup-2026-04-09_14-30-00.sql -e apps/ap
 ### Restore with full database reset
 ```bash
 bash scripts/db-restore.sh -e apps/api/.env --reset
+```
+
+### Schema-only cleanup (no restore)
+```bash
+bash scripts/db-restore.sh -c
 ```
 
 ### Run inside Docker (via runner container)
